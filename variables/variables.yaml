@@ -1,22 +1,22 @@
 variables:
-  FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
-  FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
-  FALCON_CID: ${{ secrets.FALCON_CID }}
-  MY_REPO: "teds2acr.azurecr.io/falcon-container"
-  SOURCE_IMAGE: "quay.io/crowdstrike/vulnapp:latest"
-  TARGET_IMAGE: "teds2acr.azurecr.io/aci-vulapp:crwdv1"
-  RESOURCE_GROUP: "teds_resource_group"
-  CONTAINER_APP_NAME: "teds-container-app"
-  ACR_NAME: "teds2acr.azurecr.io"
-  AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
-  API_BASE_URL: "https://api.crowdstrike.com/"
-  USR: "00000000-0000-0000-0000-000000000000"
-  VERIFY: ${{ secrets.VERIFY }}
-  APP_ID: ${{ secrets.APP_ID }}
-  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-  TENANT_ID: "06e0fa1f-a4d9-47bb-9e62-3c3e299ba202"
-  ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
-  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
-  CONTAINER_NAME: Ted_VulnApp_Patched"
-  CONTAINER_GROUP_NAME: "VulPatched"
-  SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+  FALCON_CLIENT_ID: $(FALCON_CLIENT_ID)
+  FALCON_CLIENT_SECRET: $(FALCON_CLIENT_SECRET)
+  FALCON_CID: $(FALCON_CID)
+  MY_REPO: $(MY_REPO)
+  SOURCE_IMAGE: $(SOURCE_IMAGE)
+  TARGET_IMAGE: $(TARGET_IMAGE)
+  RESOURCE_GROUP: $(RESOURCE_GROUP)
+  CONTAINER_APP_NAME: $(CONTAINER_APP_NAME)
+  ACR_NAME: $(ACR_NAME)
+  AzureSubscription: $(AzureSubscription)
+  API_BASE_URL: $(API_BASE_URL)
+  USR: $(USR)
+  USR_PASS: $(USR_PASS)
+  APP_ID: $(APP_ID)
+  CLIENT_SECRET: $(CLIENT_SECRET)
+  TENANT_ID: $(TENANT_ID)
+  ACR_USERNAME: $(ACR_USERNAME)
+  ACR_PASSWORD: $(ACR_PASSWORD)
+  CONTAINER_NAME: $(CONTAINER_NAME)
+  CONTAINER_GROUP_NAME: $(CONTAINER_GROUP_NAME)
+  SUBSCRIPTION_ID: $(SUBSCRIPTION_ID)
