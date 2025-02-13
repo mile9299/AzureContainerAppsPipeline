@@ -1,4 +1,23 @@
 
 Variables:
   FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
-  
+  FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
+  FALCON_CID: ${{ secrets.FALCON_CIS }}
+  MY_REPO: "teds2acr.azurecr.io/falcon-container"
+  SOURCE_IMAGE: "quay.io/crowdstrike/vulnapp:latest"
+  TARGET_IMAGE: "teds2acr.azurecr.io/aci-vulapp:crwdv1"
+  RESOURCE_GROUP: "teds_resource_group"
+  CONTAINER_APP_NAME: "teds-container-app"
+  ACR_NAME: "teds2acr.azurecr.io"
+  AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
+  API_BASE_URL: "https://api.crowdstrike.com/"
+  USR: "00000000-0000-0000-0000-000000000000"
+  VERIFY: ${{ secrets.VERIFY }
+  APP_ID: ${{ secrets.APP_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TENANT_ID: "06e0fa1f-a4d9-47bb-9e62-3c3e299ba202"
+  ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+  CONTAINER_NAME: TEd_VulnApp_Patched"
+  CONTAINER_GROUP_NAME: "VuiPatched"
+  SUBSCRIPTION_ID: "5a84cb53-b383-44db-bd58-c65ca3dfcb8c"
