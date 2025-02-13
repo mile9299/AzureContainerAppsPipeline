@@ -12,7 +12,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
     inputs:
-      azureSubscription: $(AzureSubscription)  # Make sure this is correctly set to your Azure Service Connection
+      azureSubscription: $(AzureSubscription)  # Ensure this points to your Azure Service Connection
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
@@ -22,7 +22,7 @@ steps:
   # Step to authenticate Docker to Azure Container Registry
   - script: |
       echo "Logging into Azure Container Registry..."
-      az acr login --name $(ACR_NAME)
+      az acr login --name $(ACR_NAME)  # ACR login command
     displayName: 'Docker Login to Azure Container Registry'
 
   # Step to pull, tag, and push Falcon Sensor image
