@@ -1,5 +1,4 @@
-
-Variables:
+variables:
   FALCON_CLIENT_ID: ${{ secrets.FALCON_CLIENT_ID }}
   FALCON_CLIENT_SECRET: ${{ secrets.FALCON_CLIENT_SECRET }}
   FALCON_CID: ${{ secrets.FALCON_CID }}
