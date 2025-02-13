@@ -16,7 +16,7 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         echo "Logging into Azure..."
-        az login --service-principal -u $(SERVICE_PRINCIPAL_ID) -p $(SERVICE_PRINCIPAL_SECRET) --tenant $(TENANT_ID)
+        
         az account set --subscription $(AzureSubscription)
         echo "Logged into Azure successfully"
   
