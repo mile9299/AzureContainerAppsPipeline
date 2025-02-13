@@ -5,7 +5,7 @@ variables:
   MY_REPO: "teds2acr.azurecr.io/falcon-container"
   SOURCE_IMAGE: "quay.io/crowdstrike/vulnapp:latest"
   TARGET_IMAGE: "teds2acr.azurecr.io/aci-vulapp:crwdv1"
-  RESOURCE_GROUP: "TedsAKS-2_group"
+  RESOURCE_GROUP: "teds_resource_group"
   CONTAINER_APP_NAME: "TedsContainerApp"
   ACR_NAME: "teds2acr"
   AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
