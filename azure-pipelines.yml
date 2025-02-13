@@ -16,7 +16,7 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
        
-        docker login teds2acr.azurecr.io -u $(USR) -p $(KEY) 
+        docker login teds2acr.azurecr.io -u $(USR) -p $(VERIFY) 
   - script: |
       echo "Fetching latest Falcon container sensor..."
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
