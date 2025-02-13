@@ -15,8 +15,16 @@ steps:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-       
-        docker login teds2acr.azurecr.io -u $(USR) -p $(VERIFY) 
+        echo "Logging into Azure..."
+        az login --service-principal -u $(SERVICE_PRINCIPAL_ID) -p $(SERVICE_PRINCIPAL_SECRET) --tenant $(TENANT_ID)
+        az account set --subscription $(AzureSubscription)
+        echo "Logged into Azure successfully"
+  
+  - script: |
+      echo "Docker login to Azure Container Registry..."
+      docker login teds2acr.azurecr.io -u $(USR) -p $(VERIFY)
+    displayName: 'Docker Login to Azure Container Registry'
+
   - script: |
       echo "Fetching latest Falcon container sensor..."
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
