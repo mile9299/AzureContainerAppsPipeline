@@ -10,3 +10,4 @@ variables:
   ACR_NAME: "teds2acr"
   AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
   API_BASE_URL: "https://api.crowdstrike.com/"
+
