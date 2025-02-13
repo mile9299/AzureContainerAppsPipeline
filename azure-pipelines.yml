@@ -22,7 +22,8 @@ steps:
   
   - script: |
       echo "Docker login to Azure Container Registry..."
-      docker login teds2acr.azurecr.io -u $(USR) -p $(VERIFY)
+      az acr login --name teds2acr.azurecr.io
+      
     displayName: 'Docker Login to Azure Container Registry'
 
   - script: |
