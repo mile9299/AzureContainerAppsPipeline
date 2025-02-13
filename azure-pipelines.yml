@@ -8,24 +8,24 @@ variables:
   - template: variables/variables.yaml
 
 steps:
+  # Step to login to Azure using service principal
   - task: AzureCLI@2
     displayName: 'Azure Login'
     inputs:
-      azureSubscription: $(AzureSubscription)
+      azureSubscription: $(AzureSubscription)  # Make sure this is correctly set to your Azure Service Connection
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
         echo "Logging into Azure..."
         az login --service-principal --username $(APP_ID) --password $(CLIENT_SECRET) --tenant $(TENANT_ID)
-        az account set --subscription "Cloud Integrations\(5a84cb53-b383-44db-bd58-c65ca3dfcb8c\)"
-        echo "Logged into Azure successfully"
-  
+
+  # Step to authenticate Docker to Azure Container Registry
   - script: |
-      echo "Docker login to Azure Container Registry..."
-      az acr login --name teds2acr.azurecr.io
-      
+      echo "Logging into Azure Container Registry..."
+      az acr login --name $(ACR_NAME)
     displayName: 'Docker Login to Azure Container Registry'
 
+  # Step to pull, tag, and push Falcon Sensor image
   - script: |
       echo "Fetching latest Falcon container sensor..."
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
@@ -34,6 +34,7 @@ steps:
       docker push "$(MY_REPO):latest"
     displayName: 'Pull, Tag, and Push Falcon Sensor'
 
+  # Step to extract falconutil
   - script: |
       echo "Extracting falconutil..."
       id=$(docker create "$(MY_REPO):latest")
@@ -41,6 +42,7 @@ steps:
       docker rm -v "$id"
     displayName: 'Extract Falconutil'
 
+  # Step to patch vulnerable application image
   - script: |
       echo "Patching vulnerable application image..."
       /tmp/falconutil patch-image aci \
@@ -50,11 +52,13 @@ steps:
         --cid "$(FALCON_CID)"
     displayName: 'Patch Vulnerable Image'
 
+  # Step to push the patched image
   - script: |
       echo "Pushing patched image..."
       docker push "$(TARGET_IMAGE)"
     displayName: 'Push Patched Image'
 
+  # Step to deploy to Azure Container Apps
   - task: AzureCLI@2
     displayName: 'Deploy to Azure Container Apps'
     inputs:
