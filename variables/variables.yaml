@@ -7,7 +7,7 @@ variables:
   TARGET_IMAGE: "teds2acr.azurecr.io/aci-vulapp:crwdv1"
   RESOURCE_GROUP: "teds_resource_group"
   CONTAINER_APP_NAME: "TedsContainerApp"
-  ACR_NAME: "teds2acr"
+  ACR_NAME: "teds2acr.azurecr.io"
   AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
   API_BASE_URL: "https://api.crowdstrike.com/"
   USR: "00000000-0000-0000-0000-000000000000"
