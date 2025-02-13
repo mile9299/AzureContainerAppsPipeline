@@ -11,7 +11,7 @@ variables:
   AzureSubscription: "Cloud Integrations(5a84cb53-b383-44db-bd58-c65ca3dfcb8c)"
   API_BASE_URL: "https://api.crowdstrike.com/"
   USR: "00000000-0000-0000-0000-000000000000"
-  VERIFY: ${{ secrets.VERIFY }
+  VERIFY: ${{ secrets.VERIFY }}
   APP_ID: ${{ secrets.APP_ID }}
   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
   TENANT_ID: "06e0fa1f-a4d9-47bb-9e62-3c3e299ba202"
