@@ -19,6 +19,5 @@ variables:
   ACR_USERNAME: "teds2acr"
   ACR_PASSWORD: "QF/llhJzV6u2q6S4ZMaLyFbBPXoPcwSZNstdn5vpwn+ACRBRZW1n"
   CONTAINER_NAME: "VulnApp_Pathed"
-  CONTAINER_GROUP_NAME:
-  RESOURCE_GROUP: "teds_resource_group"
+  CONTAINER_GROUP_NAME: "Patched"
   SUBSCRIPTION_ID: "5a84cb53-b383-44db-bd58-c65ca3dfcb8c"
