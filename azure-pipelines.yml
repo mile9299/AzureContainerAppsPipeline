@@ -22,7 +22,7 @@ steps:
   # Step to authenticate Docker to Azure Container Registry
   - script: |
       echo "Logging into Azure Container Registry..."
-      az acr login --name $(ACR_NAME)  # ACR login command
+      docker login $(ACR_NAME) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
     displayName: 'Docker Login to Azure Container Registry'
 
   # Step to pull, tag, and push Falcon Sensor image
