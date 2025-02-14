@@ -6,7 +6,7 @@ pool:
 
 variables:
   - template: variables/variables.yaml
-  - group: "ACA_VARIABLES"
+  - group: "ACA_VARIABLES" # AzureDevOps Specific 
 
 steps:
   - task: AzureCLI@2
