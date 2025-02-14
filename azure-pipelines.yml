@@ -7,6 +7,7 @@ pool:
 variables:
   - template: variables/variables.yaml
   - group: "ACA_VARIABLES"
+
 steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
@@ -16,23 +17,27 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         echo "Logging into Azure..."
-        az login --service-principal --username $(APP_ID) --password $(CLIENT_SECRET) --tenant $(TENANT_ID)
+        az login --service-principal --username "$(APP_ID)" --password "$(CLIENT_SECRET)" --tenant "$(TENANT_ID)"
+
   - script: |
       echo "Logging into Azure Container Registry..."
-      docker login $(ACR_NAME) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
+      docker login "$(ACR_NAME)" -u "$(ACR_USERNAME)" -p "$(ACR_PASSWORD)"
     displayName: 'Docker Login to Azure Container Registry'
         
   - script: |
       echo "Fetching latest Falcon container sensor..."
-      export $FALCON_ID 
-      export $FALCON_CLIENT_SECRET
-      curl -sSL -o falcon-container-sensor-pull.sh https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh
-      chmod 777 ./falcon-container-sensor-pull.sh
-      export CONTAINERSENSOR=$(bash ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_CLIENT_SECRET --list-tags)
-      export LATEST_CONTAINERSENSOR_TAG=$(echo "$CONTAINERSENSOR" | jq -r '.tags | sort | last')
-      ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_CLIENT_SECRET
-      export IMAGE_ID=$(docker images -q registry.crowdstrike.com/falcon-container/us-1/release/falcon-sensor:$LATEST_CONTAINERSENSOR_TAG)
-        echo "Tagging and pushing sensor image..."
+      export FALCON_ID="$(FALCON_ID)"
+      export FALCON_CLIENT_SECRET="$(FALCON_CLIENT_SECRET)"
+      
+      LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
+        -u "e568db1fbbb04c5cb304816a3620892d" \
+        -s "IT62WtLhKS1Oy5usY0EvAf8FoNGgp3B7Mcqe94jm" \
+        --type falcon-sensor \
+        --platform x86_64 \
+        --region us-1 \
+        -t falcon-container | tail -1)
+
+      echo "Tagging and pushing sensor image..."
       docker tag "$LATESTSENSOR" "$(MY_REPO):latest"
       docker push "$(MY_REPO):latest"
     displayName: 'Pull, Tag, and Push Falcon Sensor'
