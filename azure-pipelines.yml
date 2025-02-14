@@ -6,8 +6,8 @@ pool:
 
 variables:
   - template: variables/variables.yaml
-  AzureSubscription: 'MyAzureServiceConnection'  # Replace with your actual service connection name
-
+  - group: "ACA_Variables"
+  
 steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
