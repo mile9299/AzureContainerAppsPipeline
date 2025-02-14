@@ -24,14 +24,14 @@ steps:
       docker login $(ACR_NAME) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
     displayName: 'Docker Login to Azure Container Registry'
 
-  - script: |
+  -  script: |
       echo "Fetching latest Falcon container sensor..."
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
-      echo $LATESTSENSOR
       echo "Tagging and pushing sensor image..."
       docker tag "$LATESTSENSOR" "$(MY_REPO):latest"
       docker push "$(MY_REPO):latest"
     displayName: 'Pull, Tag, and Push Falcon Sensor'
+    
   - script: |
       echo "Extracting falconutil..."
       id=$(docker create "$(MY_REPO):latest")
