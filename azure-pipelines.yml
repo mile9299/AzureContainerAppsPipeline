@@ -30,8 +30,8 @@ steps:
       export FALCON_CLIENT_SECRET="$(FALCON_CLIENT_SECRET)"
       
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) \
-        -u e568db1fbbb04c5cb304816a3620892d \
-        -s IT62WtLhKS1Oy5usY0EvAf8FoNGgp3B7Mcqe94jm \
+        -u 00f8c164308142c6a6ac0f0eb47e8642 \
+        -s 7H3O1AEbFX2rwSKBCdYpnR6x0j9qJu5ytIUVcP48 \
         --type falcon-sensor \
         --platform x86_64 \
         --region us-1 \
