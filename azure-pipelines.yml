@@ -29,6 +29,10 @@ steps:
       echo "Fetching latest Falcon container sensor..."
       export LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
       echo "LATESTSENSOR: $LATESTSENSOR"
+      if [ -z "$LATESTSENSOR" ]; then
+        echo "Error: LATESTSENSOR is empty. Please check the Falcon sensor script."
+        exit 1
+      fi
       echo "Tagging and pushing sensor image..."
       # Ensure the image is pulled before tagging
       docker pull $LATESTSENSOR
