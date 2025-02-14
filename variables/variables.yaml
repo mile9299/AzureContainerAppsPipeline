@@ -1,43 +1,21 @@
-variables:
-  - name: FALCON_CLIENT_ID
-    value: $(FALCON_CLIENT_ID)
-  - name: FALCON_CLIENT_SECRET
-    value: $(FALCON_CLIENT_SECRET)
-  - name: FALCON_CID
-    value: $(FALCON_CID)
-  - name: MY_REPO
-    value: $(MY_REPO)
-  - name: SOURCE_IMAGE
-    value: $(SOURCE_IMAGE)
-  - name: TARGET_IMAGE
-    value: $(TARGET_IMAGE)
-  - name: RESOURCE_GROUP
-    value: $(RESOURCE_GROUP)
-  - name: CONTAINER_APP_NAME
-    value: $(CONTAINER_APP_NAME)
-  - name: ACR_NAME
-    value: $(ACR_NAME)
-  - name: AzureSubscription
-    value: $(AzureSubscription)
-  - name: API_BASE_URL
-    value: $(API_BASE_URL)
-  - name: USR
-    value: $(USR)
-  - name: USR_PASS
-    value: $(USR_PASS)
-  - name: APP_ID
-    value: $(APP_ID)
-  - name: CLIENT_SECRET
-    value: $(CLIENT_SECRET)
-  - name: TENANT_ID
-    value: $(TENANT_ID)
-  - name: ACR_USERNAME
-    value: $(ACR_USERNAME)
-  - name: ACR_PASSWORD
-    value: $(ACR_PASSWORD)
-  - name: CONTAINER_NAME
-    value: $(CONTAINER_NAME)
-  - name: CONTAINER_GROUP_NAME
-    value: $(CONTAINER_GROUP_NAME)
-  - name: SUBSCRIPTION_ID
-    value: $(SUBSCRIPTION_ID)
+FALCON_CLIENT_ID: $(FALCON_CLIENT_ID)
+FALCON_CLIENT_SECRET: $(FALCON_CLIENT_SECRET)
+FALCON_CID: $(FALCON_CID)
+MY_REPO: $(MY_REPO)
+SOURCE_IMAGE: $(SOURCE_IMAGE)
+TARGET_IMAGE: $(TARGET_IMAGE)
+RESOURCE_GROUP: $(RESOURCE_GROUP)
+CONTAINER_APP_NAME: $(CONTAINER_APP_NAME)
+ACR_NAME: $(ACR_NAME)
+AzureSubscription: $(AzureSubscription)
+API_BASE_URL: $(API_BASE_URL)
+USR: $(USR)
+USR_PASS: $(USR_PASS)
+APP_ID: $(APP_ID)
+CLIENT_SECRET: $(CLIENT_SECRET)
+TENANT_ID: $(TENANT_ID)
+ACR_USERNAME: $(ACR_USERNAME)
+ACR_PASSWORD: $(ACR_PASSWORD)
+CONTAINER_NAME: $(CONTAINER_NAME)
+CONTAINER_GROUP_NAME: $(CONTAINER_GROUP_NAME)
+SUBSCRIPTION_ID: $(SUBSCRIPTION_ID)
