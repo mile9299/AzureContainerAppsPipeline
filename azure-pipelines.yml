@@ -6,7 +6,7 @@ pool:
 
 variables:
   - template: /variables/variables.yaml  
-  
+  - group: "ACA_Variables"
 steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
