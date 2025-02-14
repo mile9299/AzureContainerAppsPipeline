@@ -1,12 +1,13 @@
-trigger:
-- main  # or whichever branch you want to trigger the pipeline on
 
-variables:
-  - template: variables/variables.yaml  # Includes an external template
-  - group: "ACA_VARIABLES"  # Variable group
+trigger:
+  - main  # Adjust to your branch
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'  # Runs on an Ubuntu agent
+
+variables:
+  - template: variables/variables.yaml
+  - group: "ACA_VARIABLES"
 
 steps:
   - task: AzureCLI@2
@@ -26,34 +27,43 @@ steps:
     displayName: 'Docker Login to Azure Container Registry'
 
   - script: |
-      echo "Fetching the latest Falcon sensor..."
-      LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
-      echo "Latest Falcon Sensor: $LATESTSENSOR"
-      
-      echo "Pulling the image: $LATESTSENSOR"
-      docker pull $LATESTSENSOR  # Ensure the image is pulled before tagging
-
-      echo "Tagging the image..."
-      docker tag $LATESTSENSOR $(MY_REPO):latest  # Tagging the image for your Azure Container Registry
-      
-      echo "Pushing the image to ACR..."
-      docker push $(MY_REPO):latest  # Pushing the image to Azure Container Registry
-    displayName: 'Download and Push Latest Falcon Sensor'
+      echo "Fetching latest Falcon container sensor..."
+      LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -u "e568db1fbbb04c5cb304816a3620892d" -s "IT62WtLhKS1Oy5usY0EvAf8FoNGgp3B7Mcqe94jm" --type falcon-sensor  --platform x86_64 --region us-1 -t falcon-container | tail -1)
+      echo "Tagging and pushing sensor image..."
+      docker tag "$LATESTSENSOR" "$(MY_REPO):latest"
+      docker push "$(MY_REPO):latest"
+    displayName: 'Pull, Tag, and Push Falcon Sensor'
+    
+  - script: |
+      echo "Extracting falconutil..."
+      id=$(docker create "$(MY_REPO):latest")
+      docker cp "$id:/usr/bin/falconutil" /tmp
+      docker rm -v "$id"
+    displayName: 'Extract Falconutil'
 
   - script: |
-      echo "Patching the image with Falcon Sensor..."
-      id=$(docker create $(MY_REPO):latest)
-      docker cp $id:/usr/bin/falconutil /tmp
-      docker rm -v $id
-      
+      echo "Patching vulnerable application image..."
       /tmp/falconutil patch-image aci \
-        --source-image-uri $(SOURCE_IMAGE) \
-        --target-image-uri $(TARGET_IMAGE) \
-        --falcon-image-uri $(MY_REPO):latest \
-        --cid $(FALCON_CID) \
-        --container $(CONTAINER_NAME) \
-        --resource-group $(RESOURCE_GROUP) \
-        --image-pull-policy Always \
-        --container-group $(CONTAINER_GROUP) \
-        --subscription $(SUBSCRIPTION_ID)
-    displayName: 'Patch Image with Falcon Sensor'
+        --source-image-uri "$(SOURCE_IMAGE)" \
+        --target-image-uri "$(TARGET_IMAGE)" \
+        --falcon-image-uri "$(MY_REPO):latest" \
+        --cid "$(FALCON_CID)"
+    displayName: 'Patch Vulnerable Image'
+
+  - script: |
+      echo "Pushing patched image..."
+      docker push "$(TARGET_IMAGE)"
+    displayName: 'Push Patched Image'
+
+  - task: AzureCLI@2
+    displayName: 'Deploy to Azure Container Apps'
+    inputs:
+      azureSubscription: $(AzureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo "Deploying patched container to Azure Container Apps..."
+        az containerapp update \
+          --name "$(CONTAINER_APP_NAME)" \
+          --resource-group "$(RESOURCE_GROUP)" \
+          --image "$(TARGET_IMAGE)"
