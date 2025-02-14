@@ -22,7 +22,7 @@ steps:
       docker login $(ACR_NAME) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
     displayName: 'Docker Login to Azure Container Registry'
   # Step to pull, tag, and push Falcon Sensor image
-        az account set --subscription $(AzureSubscription
+        az account set --subscription $(AzureSubscription)
 
   - script: |
       echo "Fetching latest Falcon container sensor..."
