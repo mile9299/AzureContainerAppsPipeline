@@ -17,6 +17,7 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         echo "Logging into Azure..."
+        export AZURE_CONFIG_DIR=/home/vsts/.azure  # Ensure Azure CLI config directory is set
         az login --service-principal --username $(APP_ID) --password $(CLIENT_SECRET) --tenant $(TENANT_ID)
 
   - script: |
@@ -65,6 +66,7 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         echo "Deploying patched container to Azure Container Apps..."
+        export AZURE_CONFIG_DIR=/home/vsts/.azure  # Ensure Azure CLI config directory is set
         az containerapp update \
           --name "$(CONTAINER_APP_NAME)" \
           --resource-group "$(RESOURCE_GROUP)" \
