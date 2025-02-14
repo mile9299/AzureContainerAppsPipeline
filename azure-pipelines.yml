@@ -24,8 +24,8 @@ steps:
         
   - script: |
       echo "Fetching latest Falcon container sensor..."
-      echo $FALCON_ID 
-      echo $FALCON_CLIENT_SECRET
+      export $FALCON_ID 
+      export $FALCON_CLIENT_SECRET
       curl -sSL -o falcon-container-sensor-pull.sh https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh
       chmod 777 ./falcon-container-sensor-pull.sh
       export CONTAINERSENSOR=$(bash ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_CLIENT_SECRET --list-tags)
