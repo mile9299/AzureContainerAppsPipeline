@@ -11,7 +11,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
     inputs:
-      azureSubscription: 'Your-Azure-Service-Connection-Name'  # Replace with your actual service connection
+      azureSubscription: $(SUBSCRIPTION_ID)  # Replace with your actual service connection
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
