@@ -27,7 +27,7 @@ steps:
 
   - script: |
       echo "Fetching latest Falcon container sensor..."
-      export LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh -u $FALCON_CLIENT -s $FALCON_SECRET) -t falcon-container | tail -1)
+      LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh -u $FALCON_CLIENT -s $FALCON_SECRET) -t falcon-container | tail -1)
       docker pull $LATESTSENSOR
       docker tag $LATESTSENSOR $(MY_REPO):latest
       docker push $(MY_REPO):latest
