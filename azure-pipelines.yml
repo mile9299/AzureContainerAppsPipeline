@@ -17,9 +17,7 @@ steps:
       inlineScript: |
         echo "Logging into Azure..."
         /usr/bin/az cloud set -n AzureCloud
-        /usr/bin/az login --service-principal -u *** --tenant 06e0fa1f-a4d9-47bb-9e62-3c3e299ba202 --allow-no-subscriptions --federated-token ***
-
-      # az login --service-principal --username $(APP_ID) --password $(CLIENT_SECRET) --tenant $(TENANT_ID)
+        /usr/bin/az login --service-principal --username $(APP_ID) --password $(CLIENT_SECRET) --tenant $(TENANT_ID)
 
   - script: |
       echo "Logging into Azure Container Registry..."
