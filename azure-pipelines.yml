@@ -26,25 +26,26 @@ steps:
     displayName: 'Docker Login to Azure Container Registry'
 
   - script: |
-    echo "Fetching the latest Falcon sensor..."
-    LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
-    echo "Latest Falcon Sensor: $LATESTSENSOR"
-    
-    echo "Pulling the image: $LATESTSENSOR"
-    docker pull $LATESTSENSOR  # Ensure the image is pulled before tagging
+      echo "Fetching the latest Falcon sensor..."
+      LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
+      echo "Latest Falcon Sensor: $LATESTSENSOR"
+      
+      echo "Pulling the image: $LATESTSENSOR"
+      docker pull $LATESTSENSOR  # Ensure the image is pulled before tagging
 
-    echo "Tagging the image..."
-    docker tag $LATESTSENSOR $(MY_REPO):latest  # Tagging the image for your Azure Container Registry
-    
-    echo "Pushing the image to ACR..."
-    docker push $(MY_REPO):latest  # Pushing the image to Azure Container Registry
-  displayName: 'Download and Push Latest Falcon Sensor'
-
+      echo "Tagging the image..."
+      docker tag $LATESTSENSOR $(MY_REPO):latest  # Tagging the image for your Azure Container Registry
+      
+      echo "Pushing the image to ACR..."
+      docker push $(MY_REPO):latest  # Pushing the image to Azure Container Registry
+    displayName: 'Download and Push Latest Falcon Sensor'
 
   - script: |
+      echo "Patching the image with Falcon Sensor..."
       id=$(docker create $(MY_REPO):latest)
       docker cp $id:/usr/bin/falconutil /tmp
       docker rm -v $id
+      
       /tmp/falconutil patch-image aci \
         --source-image-uri $(SOURCE_IMAGE) \
         --target-image-uri $(TARGET_IMAGE) \
