@@ -6,12 +6,12 @@ pool:
 
 variables:
   - template: variables/variables.yaml
-  - group: "ACA_Variables"
+
 steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
     inputs:
-      azureSubscription: $(AzureSubscription)
+      azureSubscription: $(AzureSubscription)  # Ensure this matches your service connection name
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
@@ -64,7 +64,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Deploy to Azure Container Apps'
     inputs:
-      azureSubscription: $(AzureSubscription)
+      azureSubscription: $(AzureSubscription)  # Ensure this matches your service connection name
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
