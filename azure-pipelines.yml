@@ -28,9 +28,9 @@ steps:
       echo $FALCON_CLIENT_SECRET
       curl -sSL -o falcon-container-sensor-pull.sh https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh
       chmod 777 ./falcon-container-sensor-pull.sh
-      export CONTAINERSENSOR=$(bash ./falcon-container-sensor-pull.sh -t falcon-container -u $FCSCLIENTID -s $FCSSECRET --list-tags)
+      export CONTAINERSENSOR=$(bash ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_CLIENT_SECRET --list-tags)
       export LATEST_CONTAINERSENSOR_TAG=$(echo "$CONTAINERSENSOR" | jq -r '.tags | sort | last')
-      ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_SECRET
+      ./falcon-container-sensor-pull.sh -t falcon-container -u $FALCON_ID -s $FALCON_CLIENT_SECRET
       export IMAGE_ID=$(docker images -q registry.crowdstrike.com/falcon-container/us-1/release/falcon-sensor:$LATEST_CONTAINERSENSOR_TAG)
         echo "Tagging and pushing sensor image..."
       docker tag "$LATESTSENSOR" "$(MY_REPO):latest"
