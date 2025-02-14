@@ -4,17 +4,7 @@ trigger:
 variables:
 - template: variables/variables.yaml
 - group: "ACA_VARIABLES"
-  FALCON_CLIENT_ID: 'a908592983e34275ada9b8067c72c86f'
-  FALCON_CLIENT_SECRET: 'T62WtLhKS1Oy5usY0EvAf8FoNGgp3B7Mcqe94jm'
-  FALCON_CID: '5DDB0407BEF249C19C7A975F17979A1F-90'
-  MY_REPO: 'teds2acr.azurecr.io/falcon-container'
-  RESOURCE_GROUP: 'dvn-aks-virtual-node-test-rg'
-  SUBSCRIPTION_ID: '62f48e64-fc12-4cac-a51c-02d5e413cdfe'
-  CONTAINER_NAME: 'crwd_vulapp'
-  CONTAINER_GROUP: 'virtual-node-aci-linux'
-  SOURCE_IMAGE: 'quay.io/crowdstrike/vulnapp:latest'
-  TARGET_IMAGE: 'teds2acr.azurecr.io/aci-vulapp:crwdv1'
-
+  
 pool:
   vmImage: 'ubuntu-latest'
 
