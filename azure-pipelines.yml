@@ -29,7 +29,7 @@ steps:
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
       echo "Tagging and pushing sensor image..."
       docker tag "$LATESTSENSOR" "$(MY_REPO):latest"
-      docker push "docker pull teds2acr.azurecr.io/falcon-container:latest"
+      docker push "$(MY_REPO):latest"
     displayName: 'Pull, Tag, and Push Falcon Sensor'
   - script: |
       echo "Extracting falconutil..."
