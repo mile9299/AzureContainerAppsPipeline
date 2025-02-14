@@ -11,7 +11,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
     inputs:
-      azureSubscription: $(SUBSCRIPTION_ID)  # Replace with your actual service connection
+      azureSubscription: $(AzureSubscription)  # Replace with your actual service connection
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
@@ -60,7 +60,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Deploy to Azure Container Apps'
     inputs:
-      azureSubscription: $(SUBSCRIPTION_ID)  # Replace with your actual service connection
+      azureSubscription: $(AzureScription)  # Replace with your actual service connection
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
