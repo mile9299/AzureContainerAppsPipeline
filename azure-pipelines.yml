@@ -7,6 +7,7 @@ pool:
 variables:
   - template: variables/variables.yaml
   - group: "ACA_VARIABLES"
+
 steps:
   - task: AzureCLI@2
     displayName: 'Azure Login'
@@ -24,7 +25,7 @@ steps:
       docker login $(ACR_NAME) -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
     displayName: 'Docker Login to Azure Container Registry'
 
-  -  script: |
+  - script: |
       echo "Fetching latest Falcon container sensor..."
       LATESTSENSOR=$(bash <(curl -Ls https://github.com/CrowdStrike/falcon-scripts/releases/latest/download/falcon-container-sensor-pull.sh) -t falcon-container | tail -1)
       echo "Tagging and pushing sensor image..."
@@ -38,6 +39,7 @@ steps:
       docker cp "$id:/usr/bin/falconutil" /tmp
       docker rm -v "$id"
     displayName: 'Extract Falconutil'
+
   - script: |
       echo "Patching vulnerable application image..."
       /tmp/falconutil patch-image aci \
@@ -46,10 +48,12 @@ steps:
         --falcon-image-uri "$(MY_REPO):latest" \
         --cid "$(FALCON_CID)"
     displayName: 'Patch Vulnerable Image'
+
   - script: |
       echo "Pushing patched image..."
       docker push "$(TARGET_IMAGE)"
     displayName: 'Push Patched Image'
+
   - task: AzureCLI@2
     displayName: 'Deploy to Azure Container Apps'
     inputs:
