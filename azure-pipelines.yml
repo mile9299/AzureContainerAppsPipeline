@@ -51,7 +51,7 @@ steps: # Azure Login
 
   - script: | # Patching Image
       echo "Patching application image..."
-      /tmp/falconutil patch-image aci \
+      /tmp/falconutil patch-image aca \
         --source-image-uri "$(SOURCE_IMAGE)" \
         --target-image-uri "$(TARGET_IMAGE)" \
         --falcon-image-uri "$(MY_REPO):latest" \
