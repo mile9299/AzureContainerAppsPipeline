@@ -60,7 +60,7 @@ steps: # Azure Login
         --container-group "$(CONTAINER_GROUP_NAME)" \
         --resource-group "$(RESOURCE_GROUP)" \
         --subscription "$(SUBSCRIPTION_ID)"
-    displayName: 'Patch Vulnerable Image'
+    displayName: 'Patch Image'
 
   - script: | # Pushing Patched Image to Repo
       echo "Pushing patched image..."
