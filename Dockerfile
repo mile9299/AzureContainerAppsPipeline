@@ -9,6 +9,6 @@ RUN mkdir -p / tmp/CrowdStrike/rootfs/etc/ssl/certs && cp /etc/ssl/certs/ca-bund
 RUN chmod -Ra=rX / tmp/CrowdStrike
 FROM ubuntu: test
 COPY --from=build /tmp/CrowdStrike /opt/CrowdStrike
-ENV FALCONCTL_OPTS="--cid=xxx --tags=--trace=err" CS_AZURE_CONTAINER_GROUP="test-cg" CS_AZURE_RESOURCE_GROUP="test - rg" CS_AZURE_SUBSCRIPTION="xXX" CS_CONTAINER="test-container" CS_CLOUD_SERVICE="ACI"
+ENV FALCONCTL_OPTS="--cid=5DDB0407BEF249C19C7A975F17979A1F-90 --tags=--trace=err" CS_AZURE_CONTAINER_GROUP="ted_test-cg" CS_AZURE_RESOURCE_GROUP="TedsAKS-2_group" CS_AZURE_SUBSCRIPTION="5a84cb53-b383-44db-bd58-c65ca3dfcb8c" CS_CONTAINER="TedsContainerApp" CS_CLOUD_SERVICE="ACI"
 _CS_FALCON_SENSOR_ROOT=*/opt/CrowdStrike/rootfs"
 ENTRYPOINT ["/opt/CrowdStrike/rootfs/bin/falcon-entrypoint", "/entrypoint.sh"]
